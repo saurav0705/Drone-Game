@@ -1,0 +1,19 @@
+.flex{
+    display: inline-block;
+}
+.block{
+ display: block;
+}
+.box{
+    padding: 10px;
+    margin: 5px;
+    border: 2px solid black;
+    background-color: gray;
+}
+.hidden{
+    height: 30px;
+    width:30px;
+    font-size: large;
+    background-color: black;
+}
+

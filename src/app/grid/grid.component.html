@@ -1,0 +1,12 @@
+<div class="block" *ngFor="let elem of block" >
+    <div class="flex box hidden" *ngFor="let c of elem"  #div>
+        <div class="hidden" [style.background-color]="changeColor(c.flag)" (click)="Input(c.x,c.y)">{{c.dir || "c"}}</div>
+    </div>
+</div>
+
+<div>
+    SELECTED POINTS :: {{start | json}}  {{end|json}} 
+</div>
+<button (click)="algoUp()">Move UP</button>
+<button (click)="algoDown()">Move Down</button>
+<button (click)="resetFull()">Reset</button>
