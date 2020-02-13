@@ -5,6 +5,7 @@ import { Component, OnInit ,EventEmitter,Output} from '@angular/core';
   templateUrl: './grid.component.html',
   styleUrls: ['./grid.component.scss']
 })
+
 export class GridComponent implements OnInit {
   @Output() childReadyEvent: EventEmitter<string> = new EventEmitter();
   row = [];
@@ -15,6 +16,7 @@ export class GridComponent implements OnInit {
   }
   end={
   }
+  
   funcCount=0;
   
   
@@ -28,6 +30,7 @@ export class GridComponent implements OnInit {
         'row':param,
         'col':param2
       }
+      this.block[this.end['row']][this.end['col']].flag=true;
     }else{
       if(this.end.hasOwnProperty('row')){
         console.log('already selected');
@@ -38,6 +41,8 @@ export class GridComponent implements OnInit {
           'row' : param,
           'col' : param2
         }
+        
+        this.block[this.start['row']][this.start['col']].flag=true;
       }
     }
     }
