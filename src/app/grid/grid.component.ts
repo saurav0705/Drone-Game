@@ -1,4 +1,5 @@
-import { Component, OnInit ,EventEmitter,Output} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import {DataService} from '../service/data.service';
 
 @Component({
   selector: 'app-grid',
@@ -7,13 +8,13 @@ import { Component, OnInit ,EventEmitter,Output} from '@angular/core';
 })
 
 export class GridComponent implements OnInit {
-  @Output() childReadyEvent: EventEmitter<string> = new EventEmitter();
   row = [];
   col = [];
   block = []
   start={
    
   }
+  action= false;
   end={
   }
   
@@ -51,6 +52,16 @@ export class GridComponent implements OnInit {
   }
   
   algoDown(){
+    this.dataService.postMission({"start":{
+      "x":this.start['row'],
+      "y":this.start['col']
+    },
+      "end":{
+        "x":this.end['row'],
+        "y":this.end['col']
+      }
+  }).subscribe( data => console.log(data));
+    this.action=true;
     if(this.funcCount!==2){
       alert('not selected both points yet')
       return ;
@@ -91,11 +102,26 @@ export class GridComponent implements OnInit {
         this.start['row']=this.start['row']-1;
       }
       this.start['row']=this.start['row']+1;
+      alert('succesfully submitted mission to show that please reload the page');
 
   }
-
-
+  
+  Disable(action){
+    if(action){
+      return 'gray';
+    }
+  }
   algoUp(){
+    this.dataService.postMission({"start":{
+      "x":this.start['row'],
+      "y":this.start['col']
+    },
+      "end":{
+        "x":this.end['row'],
+        "y":this.end['col']
+      }
+  }).subscribe( data => console.log(data));
+    this.action=true;
     if(this.funcCount!==2){
       alert('not selected both points yet')
       return ;
@@ -141,7 +167,7 @@ export class GridComponent implements OnInit {
       }
       this.start['row']=this.start['row']-1;
 
-      
+      alert('succesfully submitted mission to show that please reload the page');
     
   }
   changeColor(flag)
@@ -176,10 +202,13 @@ export class GridComponent implements OnInit {
     }
     this.funcCount=0;
   }
-  constructor() { }
+  allMissions;
+  constructor(private dataService : DataService ) { }
 
   ngOnInit() {
     this.reset();
+    this.dataService.getMissions()
+                    .subscribe(missions => this.allMissions=missions['mission']);
     
   }
 

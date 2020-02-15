@@ -1,16 +1,41 @@
 <div class="main">
-<div class="block" *ngFor="let elem of block" >
-    <div class="flex box hidden" *ngFor="let c of elem"  #div>
-        <div class="hidden" [style.background-color]="changeColor(c.flag)" (click)="Input(c.x,c.y)">{{c.dir || "#"}}</div>
-    </div>
+    <div class="flex">
+<div>
+    <div class="block" *ngFor="let elem of block" >
+    <div class="flex box hidden" *ngFor="let c of elem"  >
+        <div class="hidden" [style.background-color]="changeColor(c.flag)"  (click)="Input(c.x,c.y)">{{c.dir || "#"}}
+
+        </div>
+    </div>   
 </div>
+</div>
+<div class="block" style="position: absolute;right:200px;top:10px;">
+    <h1 style="color: white;">Previous Missions</h1>
+    <table id="data">
+        <tr>
+                <th colspan="2">START</th>
+                <th colspan="2">END</th>
+            
+        
+    </tr>
+        <tr *ngFor="let mission of allMissions">
+            <td> {{mission.start.x}}</td><td> {{mission.start.y}}</td>
+            <td>{{mission.end.x}} </td><td>{{mission.end.y}}</td>
+        </tr>
+    </table>
+</div>
+</div>
+
+
+
+
 
 <div class="text">
     SELECTED POINTS :: <br>
     STARTING : ({{start.row}},{{start.col}})<br>  
     ENDING : ({{end.row}},{{end.col}}) 
 </div>
-<button (click)="algoUp()" class="button">Move UP</button>
-<button (click)="algoDown()" class="button">Move Down</button>
+<button (click)="algoUp()" [disabled]="action" [style.background-color]="Disable(action)" class="button">Move UP</button>
+<button (click)="algoDown()" [disabled]="action" [style.background-color]="Disable(action)" class="button">Move Down</button>
 <button (click)="resetFull()" class="button">Reset</button>
 </div>
